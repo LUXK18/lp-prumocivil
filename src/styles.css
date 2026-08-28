@@ -17,6 +17,9 @@ a { color: inherit; text-decoration: none; }
 .command-arrow .arrow-icon, .guarantee-arrow .arrow-icon { width: 25px; height: 25px; }
 .button .arrow-icon, .nav-cta .arrow-icon, .text-link .arrow-icon, .sticky-bar .arrow-icon { margin-left: 12px; }
 .arrow-down-right { transform: rotate(45deg); }
+.bonus-art { display: flex; align-items: center; height: 54px; margin: 14px 0 8px; font-size: 0; }
+.bonus-icon { width: 42px; height: 42px; stroke-width: 1.5; }
+.skill-icon { display: block; width: 32px !important; height: 32px !important; max-width: 32px; max-height: 32px; flex: 0 0 32px; stroke-width: 1.5; }
 .hero-darkveil-background { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
 .hero-darkveil-background .darkveil-canvas { width: 100%; height: 100%; }
 .hero:after { content: ''; position: absolute; inset: 38% -10% -20%; z-index: -1; opacity: .28; background: repeating-linear-gradient(132deg, transparent 0 70px, rgba(240,155,88,.12) 71px 72px); }
