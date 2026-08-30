@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.46.0",
     "@vitejs/plugin-react": "latest",
     "face-api.js": "^0.22.2",
     "gsap": "^3.15.0",
