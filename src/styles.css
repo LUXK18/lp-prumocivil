@@ -51,3 +51,160 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin: 20px 0 25px; font-size: clamp(48px
 	.mockup-wrap .card-swap-container { transform: translate(-50%, -50%) scale(.68); }
 }
 @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+/* Offer dock — a compact extension of the Prumo technical/editorial system. */
+.sticky-bar {
+	right: 24px;
+	bottom: 22px;
+	left: 24px;
+	gap: 0;
+	max-width: 840px;
+	min-height: 78px;
+	padding: 8px 8px 8px 22px;
+	border: 1px solid rgba(240, 155, 88, .32);
+	border-top: 2px solid var(--clay);
+	border-radius: 4px;
+	background: rgba(16, 35, 40, .96);
+	box-shadow: 0 18px 55px rgba(10, 25, 29, .28), 0 2px 8px rgba(10, 25, 29, .18);
+	-webkit-backdrop-filter: blur(16px);
+	backdrop-filter: blur(16px);
+}
+.sticky-bar:before {
+	content: '';
+	position: absolute;
+	top: -2px;
+	left: 22px;
+	width: 76px;
+	height: 2px;
+	background: var(--orange);
+	box-shadow: 84px 0 0 rgba(240, 155, 88, .28), 168px 0 0 rgba(240, 155, 88, .14);
+}
+.sticky-bar .sticky-summary { display: contents; }
+.sticky-bar .sticky-brand {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 2px 9px;
+	min-width: 235px;
+	margin-right: auto;
+}
+.sticky-bar .sticky-kicker {
+	grid-column: 1 / -1;
+	color: var(--orange);
+	font: 500 8px/1.2 var(--mono);
+	letter-spacing: .14em;
+}
+.sticky-bar .sticky-brand strong {
+	display: block;
+	align-self: end;
+	color: var(--paper);
+	font-size: 16px;
+	line-height: 1;
+	letter-spacing: -.04em;
+}
+.sticky-bar .sticky-brand strong i { color: var(--clay); font-style: normal; }
+.sticky-bar .sticky-brand strong span { color: #8fa09f; }
+.sticky-bar .sticky-brand small {
+	align-self: end;
+	color: #91a09f;
+	font: 9px/1 var(--mono);
+	white-space: nowrap;
+}
+.sticky-bar .sticky-brand small b { color: var(--clay); font-weight: 500; }
+.sticky-bar .sticky-price {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: 1px 12px;
+	min-width: 190px;
+	margin: 0 8px 0 20px;
+	padding: 2px 22px;
+	border-left: 1px solid rgba(244, 240, 233, .13);
+}
+.sticky-bar .sticky-price > span {
+	grid-column: 1 / -1;
+	color: var(--orange);
+	font: 500 7px/1.2 var(--mono);
+	letter-spacing: .13em;
+}
+.sticky-bar .sticky-price strong {
+	color: var(--paper);
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: -.06em;
+}
+.sticky-bar .sticky-price sup { color: var(--orange); font: 500 9px var(--mono); letter-spacing: 0; }
+.sticky-bar .sticky-price small { align-self: end; padding-bottom: 2px; color: #91a09f; font: 7px/1.25 var(--mono); }
+.sticky-bar button {
+	position: relative;
+	overflow: hidden;
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 180px;
+	padding: 0 18px;
+	border: 1px solid rgba(255,255,255,.12);
+	border-radius: 2px;
+	background: var(--clay);
+	color: #fff8ef;
+	font: 600 11px var(--sans);
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	transition: background .2s ease, transform .2s ease;
+}
+.sticky-bar button:after {
+	content: '';
+	position: absolute;
+	z-index: 2;
+	top: -45%;
+	bottom: -45%;
+	left: 0;
+	width: 38%;
+	pointer-events: none;
+	background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, .22) 20%, rgba(255, 255, 255, .9) 42%, #fff 50%, rgba(255, 255, 255, .9) 58%, rgba(255, 255, 255, .22) 80%, transparent 100%);
+	box-shadow: 0 0 22.8px rgba(255, 255, 255, .7), 0 0 45.6px rgba(255, 255, 255, .32);
+	mix-blend-mode: overlay;
+	transform: skewX(-18deg) translate3d(-220%, 0, 0);
+	will-change: transform, opacity;
+	animation: sticky-button-shine 5.8s linear infinite;
+}
+.sticky-bar button > span, .sticky-bar button > .arrow-icon { position: relative; z-index: 3; }
+.sticky-bar button:hover { background: #d87452; transform: translateY(-1px); }
+.sticky-bar button .arrow-icon { width: 18px; height: 18px; transition: transform .2s ease; }
+.sticky-bar button:hover .arrow-icon { transform: translateX(3px); }
+
+@keyframes sticky-button-shine {
+	0% { transform: skewX(-18deg) translate3d(-220%, 0, 0); opacity: 0; }
+	4% { transform: skewX(-18deg) translate3d(-70%, 0, 0); opacity: .3; }
+	10% { transform: skewX(-18deg) translate3d(180%, 0, 0); opacity: .3; }
+	14%, 100% { transform: skewX(-18deg) translate3d(320%, 0, 0); opacity: 0; }
+}
+
+@media (max-width: 680px) {
+	.sticky-bar { right: 8px; bottom: 8px; left: 8px; display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 6px; min-height: 68px; padding: 7px; }
+	.sticky-bar:before { left: 14px; width: 58px; }
+	.sticky-bar .sticky-summary { display: contents; }
+	.sticky-bar .sticky-brand { display: flex; align-items: center; justify-content: center; min-width: 0; height: 100%; margin: 0; padding: 0 7px; border: 0; }
+	.sticky-bar .sticky-kicker, .sticky-bar .sticky-brand small { display: none; }
+	.sticky-bar .sticky-brand strong { font-size: 14px; white-space: nowrap; }
+	.sticky-bar .sticky-price { display: flex; align-items: center; justify-content: center; min-width: 0; height: 64%; margin: auto 0; padding: 0 5px; border: 0; border-left: 1px solid rgba(244, 240, 233, .28); }
+	.sticky-bar .sticky-price > span, .sticky-bar .sticky-price small { display: none; }
+	.sticky-bar .sticky-price strong { font-size: 20px; white-space: nowrap; }
+	.sticky-bar .sticky-price sup { font-size: 8px; }
+	.sticky-bar button { width: 100%; min-width: 0; padding: 0 12px; font-size: 12px; letter-spacing: -.01em; }
+	.sticky-bar button > span { display: inline; }
+	.sticky-bar button .arrow-icon { width: 17px; height: 17px; margin-left: 10px; }
+}
+
+@media (max-width: 420px) {
+	.sticky-bar { grid-template-columns: 1fr 1fr 2fr; gap: 4px; padding: 5px; }
+	.sticky-bar .sticky-brand { padding: 0 3px; }
+	.sticky-bar .sticky-brand strong { font-size: 12px; }
+	.sticky-bar .sticky-price { padding: 0 3px; }
+	.sticky-bar .sticky-price strong { font-size: 17px; }
+	.sticky-bar button { padding-right: 10px; padding-left: 10px; font-size: 11px; }
+	.sticky-bar button .arrow-icon { margin-left: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sticky-bar button:after { animation: sticky-button-shine 5.8s linear infinite !important; }
+}
