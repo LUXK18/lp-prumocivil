@@ -357,6 +357,14 @@ function App() {
   }, []);
   const goOffer = () =>
     offerRef.current?.scrollIntoView({ behavior: "smooth" });
+  const goCheckout = (content) => {
+    const checkoutUrl = new URL("https://pay.kiwify.com.br/8yIvMel");
+    checkoutUrl.searchParams.set("utm_source", "landing_page");
+    checkoutUrl.searchParams.set("utm_medium", "cta");
+    checkoutUrl.searchParams.set("utm_campaign", "prumo_civil_fundadores");
+    checkoutUrl.searchParams.set("utm_content", content);
+    window.location.assign(checkoutUrl.toString());
+  };
   return (
     <div className="site-shell">
       <div className="topbar">
@@ -782,7 +790,7 @@ function App() {
                 </p>
                 <button
                   className="button button-orange offer-cta"
-                  onClick={() => alert("O checkout será conectado em breve.")}
+                  onClick={() => goCheckout("card_oferta")}
                 >
                   <span>Garantir minha vaga · R$19,90</span>
                   <ArrowIcon />
@@ -998,7 +1006,7 @@ function App() {
               followMouse={false}
               proximity={250}
               autoAnimate
-              onClick={goOffer}
+              onClick={() => goCheckout("cta_final")}
             >
               Quero usar hoje · R$19,90 <ArrowIcon />
             </SpecularButton>
@@ -1056,7 +1064,7 @@ function App() {
             <small>pagamento único</small>
           </div>
         </div>
-        <button onClick={goOffer}>
+        <button onClick={() => goCheckout("barra_fixa")}>
           <span>Garantir acesso</span>
           <ArrowIcon />
         </button>
