@@ -757,7 +757,6 @@ function App() {
                   />
                   <span>ACESSO VITALÍCIO</span>
                 </div>
-                <p className="offer-desc">40 skills + 700 comandos</p>
                 <div className="price">
                   <div>
                     <s>R$ 97</s>
@@ -773,7 +772,6 @@ function App() {
                     "As 40 skills completas",
                     "Biblioteca com 700 comandos prontos",
                     "3 aulas: do primeiro login à rotina de uso",
-                    "Grupo fechado no WhatsApp",
                     "Bônus 1: Skill de Licitação Pública",
                     "Bônus 2: Kit de Agentes pro ChatGPT",
                     "Bônus 3: Kit de Respostas Difíceis",
@@ -928,7 +926,7 @@ function App() {
                   ],
                   [
                     "Como recebo o acesso?",
-                    "Assim que a compra é aprovada, o acesso cai no seu e-mail, junto com o link do grupo no WhatsApp.",
+                    "Assim que a compra é aprovada, o acesso cai no seu e-mail.",
                   ],
                   [
                     "E se eu não me adaptar ou não gostar?",
