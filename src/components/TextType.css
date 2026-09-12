@@ -1,0 +1,26 @@
+.text-type {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: .18rem;
+  color: var(--orange);
+  opacity: 1;
+}
+
+.text-type__cursor--hidden {
+  display: none;
+}
+
+.text-type.hero-lead {
+  display: block;
+  min-height: 7.75em;
+}
+
+@media (max-width: 760px) {
+  .text-type.hero-lead {
+    min-height: 9.3em;
+  }
+}

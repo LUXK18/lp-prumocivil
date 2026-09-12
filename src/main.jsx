@@ -1,84 +1,1068 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import { motion } from 'motion/react';
-import { IconBolt, IconCircleCheck, IconLibrary, IconShieldCheck } from '@tabler/icons-react';
-import './styles.css';
-import BlurText from './components/BlurText';
-import DarkVeil from './component/DarkVeil';
-import CardSwap, { Card } from './component/CardSwap';
-import SpecularButton from './component/SpecularButton';
-import ShapeGrid from './component/ShapeGrid';
-import SideRays from './component/SideRays';
+import React, { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import { motion } from "motion/react";
+import {
+  IconBolt,
+  IconCircleCheck,
+  IconLibrary,
+  IconShieldCheck,
+} from "@tabler/icons-react";
+import "./styles.css";
+import TextType from "./components/TextType";
+import DecryptedText from "./components/DecryptedText";
+import DarkVeil from "./component/DarkVeil";
+import CardSwap, { Card } from "./component/CardSwap";
+import SpecularButton from "./component/SpecularButton";
+import ShapeGrid from "./component/ShapeGrid";
+import SideRays from "./component/SideRays";
 
 const skills = [
-  { icon: '⌗', title: 'Cálculo & Projeto', count: '14 SKILLS', text: 'Dimensionamento e verificação técnica com base normativa embutida.', items: ['Estrutural', 'Fundações', 'Concreto Armado', 'Alvenaria Estrutural', 'Aço & Estruturas Metálicas', 'Patologias das Construções', 'Impermeabilização', 'Instalações Hidrossanitárias', 'Instalações Elétricas (visão civil)', 'Terraplenagem & Drenagem', 'Contenções & Taludes', 'Coberturas', 'Acessibilidade (NBR 9050)', 'Acústica & Conforto'] },
-  { icon: '⌁', title: 'Documentos & Laudos', count: '10 SKILLS', text: 'Redação técnica e registros que você assina com respaldo.', items: ['Memorial Descritivo', 'Laudo Técnico', 'Perícia de Engenharia', 'ART/RRT', 'Due Diligence Técnica', 'Desempenho (NBR 15575)', 'Habite-se & Regularização', 'Vistoria de Vizinhança', 'Certificações Ambientais', 'Dossiê Técnico de Obra'] },
-  { icon: '◫', title: 'Obra & Canteiro', count: '10 SKILLS', text: 'Planejamento e controle do canteiro no dia a dia.', items: ['Cronograma & Curva S', 'Orçamento (SINAPI/SICRO/BDI)', 'Diário de Obra (RDO)', 'Gestão de Resíduos (PGRCC)', 'Logística de Canteiro', 'Controle de Qualidade (PBQP-H)', 'Segurança do Trabalho (NR-18)', 'Gestão de Equipes', 'Entrega & Assistência Técnica', 'Manutenção Predial (NBR 5674)'] },
-  { icon: '✣', title: 'Comercial & Contratos', count: '6 SKILLS', text: 'Propostas, editais e viabilidade de empreendimento.', items: ['Propostas Comerciais', 'Licitações Públicas', 'Fiscalização de Contratos', 'Viabilidade de Empreendimento', 'Negociação com Fornecedores', "Gerenciamento (Owner's Engineer)"] }
+  {
+    icon: "⌗",
+    title: "Cálculo & Projeto",
+    count: "14 SKILLS",
+    text: "Dimensionamento e verificação técnica com base normativa embutida.",
+    items: [
+      "Estrutural",
+      "Fundações",
+      "Concreto Armado",
+      "Alvenaria Estrutural",
+      "Aço & Estruturas Metálicas",
+      "Patologias das Construções",
+      "Impermeabilização",
+      "Instalações Hidrossanitárias",
+      "Instalações Elétricas (visão civil)",
+      "Terraplenagem & Drenagem",
+      "Contenções & Taludes",
+      "Coberturas",
+      "Acessibilidade (NBR 9050)",
+      "Acústica & Conforto",
+    ],
+  },
+  {
+    icon: "⌁",
+    title: "Documentos & Laudos",
+    count: "10 SKILLS",
+    text: "Redação técnica e registros que você assina com respaldo.",
+    items: [
+      "Memorial Descritivo",
+      "Laudo Técnico",
+      "Perícia de Engenharia",
+      "ART/RRT",
+      "Due Diligence Técnica",
+      "Desempenho (NBR 15575)",
+      "Habite-se & Regularização",
+      "Vistoria de Vizinhança",
+      "Certificações Ambientais",
+      "Dossiê Técnico de Obra",
+    ],
+  },
+  {
+    icon: "◫",
+    title: "Obra & Canteiro",
+    count: "10 SKILLS",
+    text: "Planejamento e controle do canteiro no dia a dia.",
+    items: [
+      "Cronograma & Curva S",
+      "Orçamento (SINAPI/SICRO/BDI)",
+      "Diário de Obra (RDO)",
+      "Gestão de Resíduos (PGRCC)",
+      "Logística de Canteiro",
+      "Controle de Qualidade (PBQP-H)",
+      "Segurança do Trabalho (NR-18)",
+      "Gestão de Equipes",
+      "Entrega & Assistência Técnica",
+      "Manutenção Predial (NBR 5674)",
+    ],
+  },
+  {
+    icon: "✣",
+    title: "Comercial & Contratos",
+    count: "6 SKILLS",
+    text: "Propostas, editais e viabilidade de empreendimento.",
+    items: [
+      "Propostas Comerciais",
+      "Licitações Públicas",
+      "Fiscalização de Contratos",
+      "Viabilidade de Empreendimento",
+      "Negociação com Fornecedores",
+      "Gerenciamento (Owner's Engineer)",
+    ],
+  },
 ];
 const commands = [
-  ['COMANDO', 'Resposta rápida pro cliente', 'Parecer técnico estruturado em minutos, pra dúvida de cliente, construtora ou fiscal.'],
-  ['COMANDO', 'E-mail de cobrança sem drama', 'Atraso, mudança de escopo ou pagamento pendente, com tom firme e profissional.'],
-  ['COMANDO', 'Ata de reunião em 2 minutos', 'Cola a transcrição, recebe decisão, pendência e responsável, sem enrolação.'],
-  ['COMANDO', 'Réplica técnica fundamentada', 'Defesa de projeto ou laudo, ponto a ponto, com base normativa citada.'],
-  ['COMANDO', 'Checklist de vistoria', 'Itens prontos pra levar a campo, de acordo com o tipo de obra.'],
-  ['COMANDO', 'Raio-x de proposta concorrente', 'Mapeia brecha, risco e diferencial pra você se posicionar melhor.']
+  [
+    "COMANDO",
+    "Resposta rápida pro cliente",
+    "Parecer técnico estruturado em minutos, pra dúvida de cliente, construtora ou fiscal.",
+  ],
+  [
+    "COMANDO",
+    "E-mail de cobrança sem drama",
+    "Atraso, mudança de escopo ou pagamento pendente, com tom firme e profissional.",
+  ],
+  [
+    "COMANDO",
+    "Ata de reunião em 2 minutos",
+    "Cola a transcrição, recebe decisão, pendência e responsável, sem enrolação.",
+  ],
+  [
+    "COMANDO",
+    "Réplica técnica fundamentada",
+    "Defesa de projeto ou laudo, ponto a ponto, com base normativa citada.",
+  ],
+  [
+    "COMANDO",
+    "Checklist de vistoria",
+    "Itens prontos pra levar a campo, de acordo com o tipo de obra.",
+  ],
+  [
+    "COMANDO",
+    "Raio-x de proposta concorrente",
+    "Mapeia brecha, risco e diferencial pra você se posicionar melhor.",
+  ],
 ];
 const bonuses = [
-  ['BÔNUS 01', 'Skill de Licitação Pública', 'Cola o edital, a skill mapeia exigência, prazo e documentação, e monta a base da sua proposta. Obra pública sem se afogar em PDF de 80 páginas.', 'R$ 37'],
-  ['BÔNUS 02', 'Kit de Agentes pro ChatGPT', 'Versão adaptada das skills principais pra quem também usa ou prefere o ecossistema ChatGPT.', 'R$ 37'],
-  ['BÔNUS 03', 'Kit de Respostas Difíceis', 'Modelos prontos pra cobrança, atraso, mudança de escopo e negociação com fornecedor. O e-mail chato do mês resolvido em um cola e ajusta.', 'R$ 37']
+  [
+    "BÔNUS 01",
+    "Skill de Licitação Pública",
+    "Cola o edital, a skill mapeia exigência, prazo e documentação, e monta a base da sua proposta. Obra pública sem se afogar em PDF de 80 páginas.",
+    "R$ 37",
+  ],
+  [
+    "BÔNUS 02",
+    "Kit de Agentes pro ChatGPT",
+    "Versão adaptada das skills principais pra quem também usa ou prefere o ecossistema ChatGPT.",
+    "R$ 37",
+  ],
+  [
+    "BÔNUS 03",
+    "Kit de Respostas Difíceis",
+    "Modelos prontos pra cobrança, atraso, mudança de escopo e negociação com fornecedor. O e-mail chato do mês resolvido em um cola e ajusta.",
+    "R$ 37",
+  ],
 ];
 
-function SplitText({ text, className = '' }) { return <span className={`split-text ${className}`}>{text.split(' ').map((word, index) => <span className="split-word" style={{ '--i': index }} key={`${word}-${index}`}>{word}&nbsp;</span>)}</span>; }
-function ArrowIcon({ className = '' }) { return <svg className={`arrow-icon ${className}`} width="46" height="46" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /><path d="m13 18 6-6" /><path d="m13 6 6 6" /></svg>; }
+function SplitText({ text, className = "" }) {
+  return (
+    <span className={`split-text ${className}`}>
+      {text.split(" ").map((word, index) => (
+        <span
+          className="split-word"
+          style={{ "--i": index }}
+          key={`${word}-${index}`}
+        >
+          {word}&nbsp;
+        </span>
+      ))}
+    </span>
+  );
+}
+function ArrowIcon({ className = "" }) {
+  return (
+    <svg
+      className={`arrow-icon ${className}`}
+      width="46"
+      height="46"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14" />
+      <path d="m13 18 6-6" />
+      <path d="m13 6 6 6" />
+    </svg>
+  );
+}
 function BonusIcon({ type }) {
   const paths = [
-    <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" /><path d="M8 7h8M8 11h6" /></>,
-    <><path d="M3 4h18" /><path d="M12 4v16" /><path d="m8 20 4-4 4 4" /><rect x="5" y="7" width="14" height="7" rx="1" /></>,
-    <><path d="M9 5h6" /><path d="M9 4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2H9V4Z" /><rect x="5" y="5" width="14" height="16" rx="2" /><path d="m9 13 2 2 4-4" /></>
+    <>
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
+      <path d="M8 7h8M8 11h6" />
+    </>,
+    <>
+      <path d="M3 4h18" />
+      <path d="M12 4v16" />
+      <path d="m8 20 4-4 4 4" />
+      <rect x="5" y="7" width="14" height="7" rx="1" />
+    </>,
+    <>
+      <path d="M9 5h6" />
+      <path d="M9 4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2H9V4Z" />
+      <rect x="5" y="5" width="14" height="16" rx="2" />
+      <path d="m9 13 2 2 4-4" />
+    </>,
   ];
-  return <svg className="bonus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" aria-hidden="true">{paths[type]}</svg>;
+  return (
+    <svg
+      className="bonus-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      aria-hidden="true"
+    >
+      {paths[type]}
+    </svg>
+  );
 }
 function SkillIcon({ type }) {
   const paths = [
-    <><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8" /></>,
-    <><circle cx="6" cy="18" r="2" /><circle cx="18" cy="6" r="2" /><path d="M8 18h2a4 4 0 0 0 4-4v-4a4 4 0 0 1 4-4" /></>,
-    <><path d="M5 4h10l4 4v12H5z" /><path d="M15 4v5h4M8 13h8M8 17h6" /></>,
-    <><path d="M4 19V5M4 19h16" /><path d="m7 15 3-4 3 2 5-7" /><path d="M18 6h2v2" /></>
+    <>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M8 7h8M8 11h2M14 11h2M8 15h2M14 15h2M8 18h8" />
+    </>,
+    <>
+      <circle cx="6" cy="18" r="2" />
+      <circle cx="18" cy="6" r="2" />
+      <path d="M8 18h2a4 4 0 0 0 4-4v-4a4 4 0 0 1 4-4" />
+    </>,
+    <>
+      <path d="M5 4h10l4 4v12H5z" />
+      <path d="M15 4v5h4M8 13h8M8 17h6" />
+    </>,
+    <>
+      <path d="M4 19V5M4 19h16" />
+      <path d="m7 15 3-4 3 2 5-7" />
+      <path d="M18 6h2v2" />
+    </>,
   ];
-  return <svg className="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" aria-hidden="true">{paths[type]}</svg>;
+  return (
+    <svg
+      className="skill-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      aria-hidden="true"
+    >
+      {paths[type]}
+    </svg>
+  );
 }
-function AnimatedContent({ children, className = '', delay = 0 }) { return <motion.div className={className} initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}>{children}</motion.div>; }
-function DocumentMockup() { return <div className="mockup-wrap"><div className="mockup-note">PRUMO / WORKFLOW 001</div><CardSwap width={430} height={360} cardDistance={30} verticalDistance={40} delay={3000} pauseOnHover={false}><Card className="workflow-card"><span className="workflow-kicker">01 / DOCUMENTOS & LAUDOS</span><h3>Memorial<br /><em>descritivo</em></h3><p>"Redação técnica e registros que você assina com respaldo."</p><span className="workflow-foot">10 SKILLS DISPONÍVEIS <ArrowIcon /></span></Card><Card className="workflow-card"><span className="workflow-kicker">02 / CÁLCULO & PROJETO</span><h3>Dimensionamento<br /><em>estrutural</em></h3><p>"Dimensionamento e verificação técnica com base normativa embutida."</p><span className="workflow-foot">14 SKILLS DISPONÍVEIS <ArrowIcon /></span></Card><Card className="workflow-card"><span className="workflow-kicker">03 / OBRA & CANTEIRO</span><h3>Cronograma<br /><em>& curva S</em></h3><p>"Planejamento e controle do canteiro no dia a dia."</p><span className="workflow-foot">10 SKILLS DISPONÍVEIS <ArrowIcon /></span></Card></CardSwap></div>; }
+function AnimatedContent({ children, className = "", delay = 0 }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+function DecryptedHeading({ children }) {
+  const animateNodes = (nodes) =>
+    React.Children.map(nodes, (node, index) => {
+      if (typeof node === "string")
+        return (
+          <DecryptedText
+            key={`${node}-${index}`}
+            text={node}
+            speed={38}
+            maxIterations={12}
+            sequential
+            revealDirection="start"
+            animateOn="view"
+            className="decrypt-revealed"
+            encryptedClassName="decrypt-encrypted"
+          />
+        );
+      if (!React.isValidElement(node) || node.type === "br") return node;
+      const className =
+        node.type === "span"
+          ? `${node.props.className || ""} heading-accent`.trim()
+          : node.props.className;
+      return React.cloneElement(
+        node,
+        { ...node.props, className },
+        animateNodes(node.props.children),
+      );
+    });
+  return <h2>{animateNodes(children)}</h2>;
+}
+function DocumentMockup() {
+  return (
+    <div className="mockup-wrap">
+      <div className="mockup-note">PRUMO / WORKFLOW 001</div>
+      <CardSwap
+        width={430}
+        height={360}
+        cardDistance={30}
+        verticalDistance={40}
+        delay={3000}
+        pauseOnHover={false}
+      >
+        <Card className="workflow-card">
+          <span className="workflow-kicker">01 / DOCUMENTOS & LAUDOS</span>
+          <h3>
+            Memorial
+            <br />
+            <em>descritivo</em>
+          </h3>
+          <p>"Redação técnica e registros que você assina com respaldo."</p>
+          <span className="workflow-foot">
+            10 SKILLS DISPONÍVEIS <ArrowIcon />
+          </span>
+        </Card>
+        <Card className="workflow-card">
+          <span className="workflow-kicker">02 / CÁLCULO & PROJETO</span>
+          <h3>
+            Dimensionamento
+            <br />
+            <em>estrutural</em>
+          </h3>
+          <p>
+            "Dimensionamento e verificação técnica com base normativa embutida."
+          </p>
+          <span className="workflow-foot">
+            14 SKILLS DISPONÍVEIS <ArrowIcon />
+          </span>
+        </Card>
+        <Card className="workflow-card">
+          <span className="workflow-kicker">03 / OBRA & CANTEIRO</span>
+          <h3>
+            Cronograma
+            <br />
+            <em>& curva S</em>
+          </h3>
+          <p>"Planejamento e controle do canteiro no dia a dia."</p>
+          <span className="workflow-foot">
+            10 SKILLS DISPONÍVEIS <ArrowIcon />
+          </span>
+        </Card>
+      </CardSwap>
+    </div>
+  );
+}
 
 function App() {
-  const [showSticky, setShowSticky] = useState(false); const offerRef = useRef(null);
-  useEffect(() => { const onScroll = () => setShowSticky(window.scrollY > 700); window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll); }, []);
-  const goOffer = () => offerRef.current?.scrollIntoView({ behavior: 'smooth' });
-  return <div className="site-shell">
-    <div className="topbar"><img className="topbar-icon" src="/brand/icon-light.svg" alt="" aria-hidden="true" /> TURMA DE LANÇAMENTO PRUMO CIVIL <span className="topbar-dot">•</span> CONDIÇÃO DE FUNDADOR <span className="topbar-end">ENQUANTO A LEVA ESTIVER ABERTA</span></div>
-    <header className="hero dark-section"><div className="hero-darkveil-background" aria-hidden="true"><DarkVeil hueShift={223} noiseIntensity={0.04} scanlineFrequency={0.5} warpAmount={5} /></div><div className="engineer-rule"><span>01</span><span>05</span><span>10</span><span>15</span><span>20</span></div><div className="hero-watermark">40</div><nav><a className="brand" href="#inicio" aria-label="Prumo Civil"><img src="/brand/logo-light.svg" alt="Prumo Civil" /></a><div className="nav-links"><a href="#pacote">O pacote</a><a href="#como-funciona">Como funciona</a><a href="#faq">Dúvidas</a></div><button className="nav-cta" onClick={goOffer}>Quero conhecer <ArrowIcon /></button></nav><div className="hero-grid" id="inicio"><div className="hero-copy"><div className="eyebrow accent">SKILLS DE IA · ENGENHARIA CIVIL</div><h1>A IA que chega sabendo engenharia,<br /><span>não só sabendo conversar.</span></h1><BlurText text="40 skills prontas pra orçamento, laudo, cronograma e memorial descritivo, o operacional inteiro por R$19,90. Sem aprender prompt, sem curso longo. Você cola, pede a tarefa do dia e recebe o rascunho técnico pronto pra conferir, ajustar e assinar." className="hero-lead" /><div className="hero-actions"><SpecularButton size="lg" radius={9} tint="#EB551F" tintOpacity={0} blur={14} textColor="#EB551F" lineColor="#EB551F" baseColor="#EB551F" intensity={3} shineSize={10} shineFade={35} thickness={1} speed={0.35} followMouse={false} proximity={250} autoAnimate onClick={goOffer}>Quero entender a oferta <ArrowIcon /></SpecularButton><span className="action-note">Acesso imediato · Copia e cola<br />Requer Claude Pro</span></div><div className="hero-trust"><span><IconShieldCheck aria-hidden="true" /> GARANTIA DE 7 DIAS</span><span><IconBolt aria-hidden="true" /> ACESSO IMEDIATO</span><span><IconLibrary aria-hidden="true" /> 700 COMANDOS INCLUSOS</span></div></div><DocumentMockup /></div><div className="scroll-cue"><span />ROLE PARA CONHECER</div></header>
-    <div className="ticker" aria-hidden="true"><div className="ticker-track">ORÇAMENTO <b>✳</b> SINAPI <b>✳</b> BDI <b>✳</b> CRONOGRAMA <b>✳</b> MEMORIAL DESCRITIVO <b>✳</b> LAUDO TÉCNICO <b>✳</b> ART/RRT <b>✳</b> NBR <b>✳</b> RDO <b>✳</b> PATOLOGIA <b>✳</b> LICITAÇÃO <b>✳</b> VISTORIA <b>✳</b> 700 COMANDOS <b>✳</b> ORÇAMENTO <b>✳</b> SINAPI <b>✳</b> BDI <b>✳</b> CRONOGRAMA <b>✳</b> MEMORIAL DESCRITIVO <b>✳</b> LAUDO TÉCNICO <b>✳</b> ART/RRT <b>✳</b> NBR <b>✳</b> RDO <b>✳</b> PATOLOGIA <b>✳</b> LICITAÇÃO <b>✳</b> VISTORIA <b>✳</b> 700 COMANDOS <b>✳</b></div></div>
-    <main>
-      <section className="section pain-section"><AnimatedContent><div className="section-label">01 / O PROBLEMA</div><div className="pain-layout"><div><h2>Você não passou 5 anos na faculdade<br />pra virar <span>digitador de planilha.</span></h2></div><div className="body-copy"><p>Refazer o mesmo orçamento pela enésima vez. Conferir BDI item por item. Montar cronograma do zero porque o anterior sumiu. Redigir laudo de madrugada porque o cliente cobrou hoje de manhã.</p><p>O serviço técnico que fecha contrato, resolve problema de obra e leva sua assinatura fica pra depois, porque o dia inteiro é engolido por tarefa repetitiva que uma ferramenta bem configurada deveria estar fazendo por você.</p><strong className="pivot">E esse tempo não some.<br /><em>Ele só deixa de virar dinheiro no seu bolso.</em></strong></div></div><div className="callout"><span className="quote-mark">"</span><p>Você já deve ter tentado: abriu um ChatGPT ou Claude qualquer, pediu ajuda com um orçamento ou um laudo, e recebeu algo raso, sem base normativa — do tipo que você não assinaria nem morto.</p><b>A ferramenta não é o problema. Faltou contexto. Configurar isso direito sozinho, testando prompt atrás de prompt até acertar o formato, come semana.<br /><span>A gente já testou por você.</span></b></div></AnimatedContent></section>
-      <section className="bridge"><span>↓</span><p>Foi pra isso<br /><em>que o Prumo Civil nasceu.</em></p></section>
-      <section className="section tinted mechanism" id="como-funciona"><AnimatedContent><div className="section-label">02 / COMO FUNCIONA</div><h2>Cada skill já entra<br />com o <span>contexto técnico embutido.</span></h2><p className="wide-copy">Norma, método e formato de resposta já vêm configurados dentro de cada skill. Você não escreve prompt. Instala, manda a tarefa real do seu dia e recebe de volta no formato que você já usaria em obra.</p><div className="split-note"><span>O PRUMO NÃO ASSINA NADA. QUEM ASSINA É VOCÊ.</span><b>+</b><span>A SKILL FAZ O RASCUNHO, VOCÊ CONFERE E ASSINA</span><i><ArrowIcon className="arrow-down-right" /></i></div></AnimatedContent></section>
-      <section className="section" id="pacote"><AnimatedContent><div className="section-head"><div><div className="section-label">03 / O PACOTE</div><h2>40 especialistas,<br /><span>cada um só numa coisa.</span></h2></div><p>Todas as 40 skills vêm no mesmo pacote, organizadas por categoria. Não tem versão incompleta guardando as boas pra um upsell depois.</p></div><div className="skills-grid">{skills.map((skill, i) => <motion.article className="skill-card" key={skill.title} whileHover={{ y: -6 }} transition={{ duration: .2 }}><div className="card-icon"><SkillIcon type={i} /></div><div className="card-count">{skill.count}</div><h3>{skill.title}</h3><p>{skill.text}</p><ul>{skill.items.map(item => <li key={item}>↳ {item}</li>)}</ul><span className="card-index">0{i + 1}</span></motion.article>)}</div><button className="text-link" onClick={goOffer}>Quero as 40 skills <ArrowIcon /></button></AnimatedContent></section>
-      <section className="section tinted commands"><AnimatedContent><div className="section-label">04 / 700 COMANDOS PRONTOS</div><div className="section-head"><h2>Pro que não é rotina,<br /><span>mas também não pode esperar.</span></h2><p>Uma biblioteca com 700 comandos organizados por situação real de engenharia. Copia, cola no Claude e resolve, sem escrever prompt nenhum.</p></div><div className="command-grid">{commands.map(([tag, title, text], i) => <article className="command-card" key={title}><span className="command-tag">{tag}</span><span className="command-number">0{i + 1}</span><h3>{title}</h3><p>{text}</p><span className="command-arrow"><ArrowIcon /></span></article>)}</div><p className="under-note">+ outros 694 comandos cobrindo proposta comercial, gestão de equipe, comunicação com fornecedor, revisão de contrato, relatório executivo e mais.</p></AnimatedContent></section>
-      <section className="section steps"><AnimatedContent><div className="section-label">05 / DO ZERO AO USO</div><h2>Da compra à primeira tarefa em <span>menos de 10 minutos.</span></h2><div className="steps-grid">{[['01', 'Acesse o Claude', 'Precisa do Claude Pro (por volta de US$20/mês), o plano que libera os Projetos onde as skills rodam. Contratado direto com a Anthropic.'], ['02', 'Cole a skill', 'Você recebe o texto pronto de cada uma das 40. É literalmente copiar e colar dentro de um Projeto.'], ['03', 'Mande a tarefa real', 'A skill já responde no contexto certo, pronta pra você conferir e ajustar.']].map(([number, title, text]) => <div className="step" key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></AnimatedContent></section>
-      <section className="section tinted bonuses"><AnimatedContent><div className="section-head"><div><div className="section-label">06 / INCLUSO NO PACOTE</div><h2>+ 3 bônus,<br /><span>sem custo extra.</span></h2></div><p>Além das skills, materiais para encurtar a curva entre ter acesso e sentir resultado.</p></div><div className="bonus-grid">{bonuses.map(([label, title, text, price], index) => <article className="bonus" key={label}><span className="eyebrow">{label}</span><div className="bonus-art"><BonusIcon type={index} /></div><h3>{title}</h3><p>{text}</p><div className="bonus-price"><s>{price}</s><b>GRÁTIS</b></div></article>)}</div></AnimatedContent></section>
-      <section className="section offer-section dark-section" ref={offerRef} id="oferta"><div className="offer-shapegrid-background" aria-hidden="true"><ShapeGrid direction="down" speed={0.2} squareSize={40} shape="square" borderColor="#30140b" hoverFillColor="#471b0c" hoverTrailAmount={5} /></div><AnimatedContent><div className="offer-layout"><div className="offer-intro"><div className="eyebrow orange">CONDIÇÃO DE FUNDADOR</div><h2>Mais barato que 15 minutos<br /><span>da sua hora técnica.</span></h2><p>40 skills + biblioteca de 700 comandos + guia de instalação. Investimento único, acesso vitalício.</p><div className="offer-manifesto">"Você assina.<br /><em>A ferramenta não.</em>"</div></div><div className="offer-card"><div className="offer-card-top"><img className="offer-logo" src="/brand/logo-dark.svg" alt="Prumo Civil" /><span>ACESSO VITALÍCIO</span></div><p className="offer-desc">40 skills + 700 comandos + guia de instalação</p><div className="price"><div><s>R$ 97</s><small>-79% OFF</small></div><strong><sup>R$</sup>19,90</strong><span>pagamento único · acesso vitalício</span></div><ul className="checklist">{['As 40 skills completas', 'Biblioteca com 700 comandos prontos', 'Guia de instalação passo a passo', '3 aulas: do primeiro login à rotina de uso', 'Grupo fechado no WhatsApp', 'Bônus 1: Skill de Licitação Pública', 'Bônus 2: Kit de Agentes pro ChatGPT', 'Bônus 3: Kit de Respostas Difíceis'].map(item => <li key={item}><IconCircleCheck aria-hidden="true" /> <span>{item}</span></li>)}</ul><p className="value-note">Se paga no primeiro orçamento<br /><strong>que você não refaz à mão.</strong></p><button className="button button-orange offer-cta" onClick={() => alert('O checkout será conectado em breve.')}><span>Garantir minha vaga · R$19,90</span><ArrowIcon /></button><small className="secure">⌁ Compra segura · Acesso imediato</small></div></div></AnimatedContent></section>
-      <section className="section guarantee"><AnimatedContent><div className="guarantee-box"><div className="guarantee-icon">7</div><div><div className="eyebrow">GARANTIA DE USO REAL</div><h3>7 dias de teste, sem risco.</h3><p>Instala e usa num orçamento ou laudo real da sua semana. Se em 7 dias você sentir que não economizou tempo nenhum, manda um e-mail e devolvemos o valor inteiro.</p></div><span className="guarantee-arrow"><ArrowIcon /></span></div><div className="stamp-row"><div className="stamp">PRUMO CIVIL<br /><strong>✦</strong><br /><span>ASSINADO POR VOCÊ</span></div><p>Toda skill sai como rascunho pra revisão, igual chegaria de um colega técnico. Quem carimba, assina e responde continua sendo você.<br /><strong>O Prumo nunca assume ART, RRT ou responsabilidade técnica de ninguém.</strong></p></div></AnimatedContent></section>
-      <section className="section reposition"><AnimatedContent><div className="section-label">07 / UM LEMBRETE</div><p>Cálculo, norma e responsabilidade técnica são seus. O Prumo entra pra cuidar do operacional: o rascunho, a estrutura, a redação. Quem decide, revisa e assina continua sendo você.</p><h2>Isso aqui não ensina engenharia.<br /><span>Você já sabe.</span></h2></AnimatedContent></section>
-      <section className="section tinted testimonials"><AnimatedContent><div className="section-head"><div><div className="section-label">08 / TURMA FUNDADORA</div><h2>O que queremos ouvir<br /><span>depois do uso.</span></h2></div></div><div className="testimonial-grid">{[['ROTINA DE OBRA', 'O que mais faria diferença para mim é parar de começar cada relatório do zero. Se eu conseguir organizar as informações do dia, gerar uma primeira versão e depois revisar com calma, já economizo um bom tempo sem perder o controle técnico.', 'Rafael Martins', 'Engenheiro responsável por obra'], ['DOCUMENTAÇÃO TÉCNICA', 'Eu não espero que a inteligência artificial faça o laudo por mim. O que eu quero é uma estrutura coerente, perguntas sobre os dados que estão faltando e um rascunho que eu consiga conferir. Só isso já reduz bastante o trabalho repetitivo.', 'Camila Andrade', 'Engenheira consultora'], ['GESTÃO E COMERCIAL', 'Na correria, proposta, cobrança e resposta para fornecedor acabam tomando mais tempo do que deveriam. Ter comandos específicos para cada situação pode ajudar a responder com mais clareza e manter um padrão, principalmente quando a equipe inteira precisa se comunicar do mesmo jeito.', 'Bruno Ferreira', 'Coordenador de engenharia']].map(([label, text, name, role]) => <article className="testimonial" key={label}><span className="testimonial-tag">{label}</span><p>{text}</p><small><b>{name}</b>Perfil de uso: {role}</small></article>)}</div><div className="testimonial-closing"><div><h3>Os próximos relatos podem vir da turma de lançamento.</h3><p>Os primeiros participantes serão convidados a avaliar a instalação, a facilidade de uso e o impacto do Prumo Civil na rotina. Somente resultados autorizados e identificados serão publicados como depoimentos.</p></div><button className="button button-orange" onClick={goOffer}>Quero participar da turma fundadora <ArrowIcon /></button></div></AnimatedContent></section>
-      <section className="section faq" id="faq"><AnimatedContent><div className="section-label">09 / DÚVIDAS</div><div className="faq-layout"><h2>Perguntas<br /><span>frequentes.</span></h2><div>{[['Preciso saber usar inteligência artificial?', 'Não. As skills já vêm prontas. Você cola, pede a tarefa e usa. Se travar em algum passo, o guia mostra exatamente onde clicar.'], ['Funciona no plano gratuito do Claude?', 'Não. As skills rodam dentro de Projetos, recurso do plano Claude Pro (por volta de US$20/mês). O Pro não está incluso no pacote, você contrata direto com a Anthropic.'], ['Isso é curso de engenharia?', 'Não. Você já é o engenheiro. O Prumo cuida do rascunho, do cálculo organizado e da redação. Quem decide, revisa e assina continua sendo você.'], ['Serve pra quem trabalha sozinho e pra escritório com equipe?', 'Os dois. Sozinho, você ganha as horas de volta. Em equipe, todo mundo passa a entregar no mesmo padrão.'], ['Já tentei montar meus próprios prompts num GPT e não funcionou. Por que aqui seria diferente?', 'Prompt solto resolve uma vez. Skill carrega o contexto técnico embutido, então resolve toda vez, sem você reexplicar norma, formato e método a cada conversa nova. É essa a diferença entre configurar uma vez e reconfigurar toda hora.'], ['Como recebo o acesso?', 'Assim que a compra é aprovada, o acesso cai no seu e-mail, junto com o link do grupo no WhatsApp.'], ['E se eu não me adaptar ou não gostar?', 'Tem 7 dias de garantia. Testa num orçamento ou laudo real e, se não fizer sentido pra sua rotina, devolvemos o valor.']].map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div></AnimatedContent></section>
-      <section className="section final-cta dark-section"><div className="final-rays-background" aria-hidden="true"><SideRays speed={2.5} rayColor1="#EB551F" rayColor2="#EB551F" intensity={2} spread={3.2} origin="top-right" tilt={0} saturation={1.5} blend={0.75} falloff={0.75} opacity={1.0} /></div><AnimatedContent><div className="section-label orange">10 / O PRÓXIMO PASSO</div><h2>Você pode continuar de madrugada com o memorial.<br /><span>Ou botar 40 skills pra trabalhar hoje.</span></h2><p>Por R$19,90. Acesso imediato. Garantia de 7 dias.</p><SpecularButton size="lg" radius={9} tint="#EB551F" tintOpacity={0} blur={14} textColor="#EB551F" lineColor="#EB551F" baseColor="#EB551F" intensity={3} shineSize={10} shineFade={35} thickness={1} speed={0.35} followMouse={false} proximity={250} autoAnimate onClick={goOffer}>Quero usar hoje · R$19,90 <ArrowIcon /></SpecularButton><small>R$ 19,90 à vista · 7 dias de garantia</small></AnimatedContent></section>
-      <section className="section ps"><AnimatedContent><div className="ps-card"><span>P.S.</span><p>Pensa no tempo que você gastou essa semana em tarefa que não era cálculo nem decisão técnica. Esse tempo vale mais que R$19,90. O Prumo começa a devolver esse tempo na primeira tarefa, e a garantia de 7 dias deixa o risco do nosso lado.</p><strong>Você só testa.</strong></div></AnimatedContent></section>
-    </main>
-    <footer className="footer dark-section"><a className="brand" href="#inicio" aria-label="Prumo Civil"><img src="/brand/logo-light.svg" alt="Prumo Civil" /></a><p>O Prumo Civil é um acesso digital imediato que disponibiliza instruções de configuração (skills) pra uso no Claude, da Anthropic. Resultados podem variar conforme o uso.<br />O material não substitui o julgamento profissional do engenheiro habilitado nem a responsabilidade técnica prevista em ART/RRT. O Prumo não possui vínculo institucional com a Anthropic.</p><small>© 2026 PRUMO · TODOS OS DIREITOS RESERVADOS.</small></footer>
-    <motion.aside className={`sticky-bar ${showSticky ? 'visible' : ''}`} initial={false} animate={{ y: showSticky ? 0 : 120 }} aria-label="Oferta Prumo Civil"><div className="sticky-summary"><div className="sticky-brand"><span className="sticky-kicker">CONDIÇÃO DE FUNDADOR</span><img src="/brand/logo-light.svg" alt="Prumo Civil" /><small>40 skills <b>+</b> 700 comandos</small></div><div className="sticky-price"><span>ACESSO VITALÍCIO</span><strong><sup>R$</sup> 19,90</strong><small>pagamento único</small></div></div><button onClick={goOffer}><span>Garantir acesso</span><ArrowIcon /></button></motion.aside>
-  </div>;
+  const [showSticky, setShowSticky] = useState(false);
+  const offerRef = useRef(null);
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 700);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const goOffer = () =>
+    offerRef.current?.scrollIntoView({ behavior: "smooth" });
+  return (
+    <div className="site-shell">
+      <div className="topbar">
+        <img
+          className="topbar-icon"
+          src="/brand/icon-light.svg"
+          alt=""
+          aria-hidden="true"
+        />{" "}
+        TURMA DE LANÇAMENTO PRUMO CIVIL <span className="topbar-dot">•</span>{" "}
+        CONDIÇÃO DE FUNDADOR{" "}
+        <span className="topbar-end">ENQUANTO A LEVA ESTIVER ABERTA</span>
+      </div>
+      <header className="hero dark-section">
+        <div className="hero-darkveil-background" aria-hidden="true">
+          <DarkVeil
+            hueShift={223}
+            noiseIntensity={0.04}
+            scanlineFrequency={0.5}
+            warpAmount={5}
+          />
+        </div>
+        <div className="engineer-rule">
+          <span>01</span>
+          <span>05</span>
+          <span>10</span>
+          <span>15</span>
+          <span>20</span>
+        </div>
+        <div className="hero-watermark">40</div>
+        <nav>
+          <a className="brand" href="#inicio" aria-label="Prumo Civil">
+            <img src="/brand/logo-light.svg" alt="Prumo Civil" />
+          </a>
+          <div className="nav-links">
+            <a href="#pacote">O pacote</a>
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#faq">Dúvidas</a>
+          </div>
+          <button className="nav-cta" onClick={goOffer}>
+            Quero conhecer <ArrowIcon />
+          </button>
+        </nav>
+        <div className="hero-grid" id="inicio">
+          <div className="hero-copy">
+            <div className="eyebrow accent">
+              SKILLS DE IA · ENGENHARIA CIVIL
+            </div>
+            <h1>
+              A IA que chega sabendo engenharia,
+              <br />
+              <span>não só sabendo conversar.</span>
+            </h1>
+            <TextType
+              as="p"
+              text="40 skills prontas pra orçamento, laudo, cronograma e memorial descritivo, o operacional inteiro por R$19,90. Sem aprender prompt, sem curso longo. Você cola, pede a tarefa do dia e recebe o rascunho técnico pronto pra conferir, ajustar e assinar."
+              className="hero-lead"
+            typingSpeed={56}
+              initialDelay={450}
+              pauseDuration={1500}
+              deletingSpeed={35}
+            loop={false}
+              showCursor
+              cursorCharacter="_"
+              cursorBlinkDuration={0.5}
+            variableSpeed={{ min: 17, max: 22 }}
+            />
+            <div className="hero-actions">
+              <SpecularButton
+                size="lg"
+                radius={9}
+                tint="#EB551F"
+                tintOpacity={0}
+                blur={14}
+                textColor="#EB551F"
+                lineColor="#EB551F"
+                baseColor="#EB551F"
+                intensity={3}
+                shineSize={10}
+                shineFade={35}
+                thickness={1}
+                speed={0.35}
+                followMouse={false}
+                proximity={250}
+                autoAnimate
+                onClick={goOffer}
+              >
+                Quero entender a oferta <ArrowIcon />
+              </SpecularButton>
+              <span className="action-note">
+                Acesso imediato · Copia e cola
+                <br />
+                Requer Claude Pro
+              </span>
+            </div>
+            <div className="hero-trust">
+              <span>
+                <IconShieldCheck aria-hidden="true" /> GARANTIA DE 7 DIAS
+              </span>
+              <span>
+                <IconBolt aria-hidden="true" /> ACESSO IMEDIATO
+              </span>
+              <span>
+                <IconLibrary aria-hidden="true" /> 700 COMANDOS INCLUSOS
+              </span>
+            </div>
+          </div>
+          <DocumentMockup />
+        </div>
+        <div className="scroll-cue">
+          <span />
+          ROLE PARA CONHECER
+        </div>
+      </header>
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          ORÇAMENTO <b>✳</b> SINAPI <b>✳</b> BDI <b>✳</b> CRONOGRAMA <b>✳</b>{" "}
+          MEMORIAL DESCRITIVO <b>✳</b> LAUDO TÉCNICO <b>✳</b> ART/RRT <b>✳</b>{" "}
+          NBR <b>✳</b> RDO <b>✳</b> PATOLOGIA <b>✳</b> LICITAÇÃO <b>✳</b>{" "}
+          VISTORIA <b>✳</b> 700 COMANDOS <b>✳</b> ORÇAMENTO <b>✳</b> SINAPI{" "}
+          <b>✳</b> BDI <b>✳</b> CRONOGRAMA <b>✳</b> MEMORIAL DESCRITIVO <b>✳</b>{" "}
+          LAUDO TÉCNICO <b>✳</b> ART/RRT <b>✳</b> NBR <b>✳</b> RDO <b>✳</b>{" "}
+          PATOLOGIA <b>✳</b> LICITAÇÃO <b>✳</b> VISTORIA <b>✳</b> 700 COMANDOS{" "}
+          <b>✳</b>
+        </div>
+      </div>
+      <main>
+        <section className="section pain-section">
+          <AnimatedContent>
+            <div className="section-label">01 / O PROBLEMA</div>
+            <div className="pain-layout">
+              <div>
+                <DecryptedHeading>
+                  Você não passou 5 anos na faculdade
+                  <br />
+                  pra virar <span>digitador de planilha.</span>
+                </DecryptedHeading>
+              </div>
+              <div className="body-copy">
+                <p>
+                  Refazer o mesmo orçamento pela enésima vez. Conferir BDI item
+                  por item. Montar cronograma do zero porque o anterior sumiu.
+                  Redigir laudo de madrugada porque o cliente cobrou hoje de
+                  manhã.
+                </p>
+                <p>
+                  O serviço técnico que fecha contrato, resolve problema de obra
+                  e leva sua assinatura fica pra depois, porque o dia inteiro é
+                  engolido por tarefa repetitiva que uma ferramenta bem
+                  configurada deveria estar fazendo por você.
+                </p>
+                <strong className="pivot">
+                  E esse tempo não some.
+                  <br />
+                  <em>Ele só deixa de virar dinheiro no seu bolso.</em>
+                </strong>
+              </div>
+            </div>
+            <div className="callout">
+              <span className="quote-mark">"</span>
+              <p>
+                Você já deve ter tentado: abriu um ChatGPT ou Claude qualquer,
+                pediu ajuda com um orçamento ou um laudo, e recebeu algo raso,
+                sem base normativa — do tipo que você não assinaria nem morto.
+              </p>
+              <b>
+                A ferramenta não é o problema. Faltou contexto. Configurar isso
+                direito sozinho, testando prompt atrás de prompt até acertar o
+                formato, come semana.
+                <br />
+                <span>A gente já testou por você.</span>
+              </b>
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="bridge">
+          <span>↓</span>
+          <p>
+            Foi pra isso
+            <br />
+            <em>que o Prumo Civil nasceu.</em>
+          </p>
+        </section>
+        <section className="section tinted mechanism" id="como-funciona">
+          <AnimatedContent>
+            <div className="section-label">02 / COMO FUNCIONA</div>
+            <DecryptedHeading>
+              Cada skill já entra
+              <br />
+              com o <span>contexto técnico embutido.</span>
+            </DecryptedHeading>
+            <p className="wide-copy">
+              Norma, método e formato de resposta já vêm configurados dentro de
+              cada skill. Você não escreve prompt. Instala, manda a tarefa real
+              do seu dia e recebe de volta no formato que você já usaria em
+              obra.
+            </p>
+          </AnimatedContent>
+        </section>
+        <section className="section" id="pacote">
+          <AnimatedContent>
+            <div className="section-head">
+              <div>
+                <div className="section-label">03 / O PACOTE</div>
+                <DecryptedHeading>
+                  40 especialistas,
+                  <br />
+                  <span>cada um só numa coisa.</span>
+                </DecryptedHeading>
+              </div>
+              <p>
+                Todas as 40 skills vêm no mesmo pacote, organizadas por
+                categoria. Não tem versão incompleta guardando as boas pra um
+                upsell depois.
+              </p>
+            </div>
+            <div className="skills-grid">
+              {skills.map((skill, i) => (
+                <motion.article
+                  className="skill-card"
+                  key={skill.title}
+                  whileHover={{ y: -6 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="card-icon">
+                    <SkillIcon type={i} />
+                  </div>
+                  <div className="card-count">{skill.count}</div>
+                  <h3>{skill.title}</h3>
+                  <p>{skill.text}</p>
+                  <ul>
+                    {skill.items.map((item) => (
+                      <li key={item}>↳ {item}</li>
+                    ))}
+                  </ul>
+                  <span className="card-index">0{i + 1}</span>
+                </motion.article>
+              ))}
+            </div>
+            <button className="text-link" onClick={goOffer}>
+              Quero as 40 skills <ArrowIcon />
+            </button>
+          </AnimatedContent>
+        </section>
+        <section className="section tinted commands">
+          <AnimatedContent>
+            <div className="section-label">04 / 700 COMANDOS PRONTOS</div>
+            <div className="section-head">
+              <DecryptedHeading>
+                Pro que não é rotina,
+                <br />
+                <span>mas também não pode esperar.</span>
+              </DecryptedHeading>
+              <p>
+                Uma biblioteca com 700 comandos organizados por situação real de
+                engenharia. Copia, cola no Claude e resolve, sem escrever prompt
+                nenhum.
+              </p>
+            </div>
+            <div className="command-grid">
+              {commands.map(([tag, title, text], i) => (
+                <article className="command-card" key={title}>
+                  <span className="command-tag">{tag}</span>
+                  <span className="command-number">0{i + 1}</span>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                  <span className="command-arrow">
+                    <ArrowIcon />
+                  </span>
+                </article>
+              ))}
+            </div>
+            <p className="under-note">
+              + outros 694 comandos cobrindo proposta comercial, gestão de
+              equipe, comunicação com fornecedor, revisão de contrato, relatório
+              executivo e mais.
+            </p>
+          </AnimatedContent>
+        </section>
+        <section className="section steps">
+          <AnimatedContent>
+            <div className="section-label">05 / DO ZERO AO USO</div>
+            <DecryptedHeading>
+              Da compra à primeira tarefa em <span>menos de 10 minutos.</span>
+            </DecryptedHeading>
+            <div className="steps-grid">
+              {[
+                [
+                  "01",
+                  "Acesse o Claude",
+                  "Precisa do Claude Pro (por volta de US$20/mês), o plano que libera os Projetos onde as skills rodam. Contratado direto com a Anthropic.",
+                ],
+                [
+                  "02",
+                  "Cole a skill",
+                  "Você recebe o texto pronto de cada uma das 40. É literalmente copiar e colar dentro de um Projeto.",
+                ],
+                [
+                  "03",
+                  "Mande a tarefa real",
+                  "A skill já responde no contexto certo, pronta pra você conferir e ajustar.",
+                ],
+              ].map(([number, title, text]) => (
+                <div className="step" key={number}>
+                  <span>{number}</span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="section tinted bonuses">
+          <AnimatedContent>
+            <div className="section-head">
+              <div>
+                <div className="section-label">06 / INCLUSO NO PACOTE</div>
+                <DecryptedHeading>
+                  + 3 bônus,
+                  <br />
+                  <span>sem custo extra.</span>
+                </DecryptedHeading>
+              </div>
+              <p>
+                Além das skills, materiais para encurtar a curva entre ter
+                acesso e sentir resultado.
+              </p>
+            </div>
+            <div className="bonus-grid">
+              {bonuses.map(([label, title, text, price], index) => (
+                <article className="bonus" key={label}>
+                  <span className="eyebrow">{label}</span>
+                  <div className="bonus-art">
+                    <BonusIcon type={index} />
+                  </div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                  <div className="bonus-price">
+                    <s>{price}</s>
+                    <b>GRÁTIS</b>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </AnimatedContent>
+        </section>
+        <section
+          className="section offer-section dark-section"
+          ref={offerRef}
+          id="oferta"
+        >
+          <div className="offer-shapegrid-background" aria-hidden="true">
+            <ShapeGrid
+              direction="down"
+              speed={0.2}
+              squareSize={40}
+              shape="square"
+              borderColor="#30140b"
+              hoverFillColor="#471b0c"
+              hoverTrailAmount={5}
+            />
+          </div>
+          <AnimatedContent>
+            <div className="offer-layout">
+              <div className="offer-intro">
+                <div className="eyebrow orange">CONDIÇÃO DE FUNDADOR</div>
+                <DecryptedHeading>
+                  Mais barato que 15 minutos
+                  <br />
+                  <span>da sua hora técnica.</span>
+                </DecryptedHeading>
+                <p>
+                  40 skills + biblioteca de 700 comandos. Investimento único,
+                  acesso vitalício.
+                </p>
+                <div className="offer-manifesto">
+                  "Você assina.
+                  <br />
+                  <em>A ferramenta não.</em>"
+                </div>
+              </div>
+              <div className="offer-card">
+                <div className="offer-card-top">
+                  <img
+                    className="offer-logo"
+                    src="/brand/logo-dark.svg"
+                    alt="Prumo Civil"
+                  />
+                  <span>ACESSO VITALÍCIO</span>
+                </div>
+                <p className="offer-desc">40 skills + 700 comandos</p>
+                <div className="price">
+                  <div>
+                    <s>R$ 97</s>
+                    <small>-79% OFF</small>
+                  </div>
+                  <strong>
+                    <sup>R$</sup>19,90
+                  </strong>
+                  <span>pagamento único · acesso vitalício</span>
+                </div>
+                <ul className="checklist">
+                  {[
+                    "As 40 skills completas",
+                    "Biblioteca com 700 comandos prontos",
+                    "3 aulas: do primeiro login à rotina de uso",
+                    "Grupo fechado no WhatsApp",
+                    "Bônus 1: Skill de Licitação Pública",
+                    "Bônus 2: Kit de Agentes pro ChatGPT",
+                    "Bônus 3: Kit de Respostas Difíceis",
+                  ].map((item) => (
+                    <li key={item}>
+                      <IconCircleCheck aria-hidden="true" /> <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="value-note">
+                  Se paga no primeiro orçamento
+                  <br />
+                  <strong>que você não refaz à mão.</strong>
+                </p>
+                <button
+                  className="button button-orange offer-cta"
+                  onClick={() => alert("O checkout será conectado em breve.")}
+                >
+                  <span>Garantir minha vaga · R$19,90</span>
+                  <ArrowIcon />
+                </button>
+                <small className="secure">
+                  ⌁ Compra segura · Acesso imediato
+                </small>
+              </div>
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="section guarantee">
+          <AnimatedContent>
+            <div className="guarantee-box">
+              <div className="guarantee-icon">7</div>
+              <div>
+                <div className="eyebrow">GARANTIA DE USO REAL</div>
+                <h3>7 dias de teste, sem risco.</h3>
+                <p>
+                  Instala e usa num orçamento ou laudo real da sua semana. Se em
+                  7 dias você sentir que não economizou tempo nenhum, manda um
+                  e-mail e devolvemos o valor inteiro.
+                </p>
+              </div>
+              <span className="guarantee-arrow">
+                <ArrowIcon />
+              </span>
+            </div>
+            <div className="stamp-row">
+              <div className="stamp">
+                PRUMO CIVIL
+                <br />
+                <strong>✦</strong>
+                <br />
+                <span>ASSINADO POR VOCÊ</span>
+              </div>
+              <p>
+                Toda skill sai como rascunho pra revisão, igual chegaria de um
+                colega técnico. Quem carimba, assina e responde continua sendo
+                você.
+                <br />
+                <strong>
+                  O Prumo nunca assume ART, RRT ou responsabilidade técnica de
+                  ninguém.
+                </strong>
+              </p>
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="section reposition">
+          <AnimatedContent>
+            <div className="section-label">07 / UM LEMBRETE</div>
+            <p>
+              Cálculo, norma e responsabilidade técnica são seus. O Prumo entra
+              pra cuidar do operacional: o rascunho, a estrutura, a redação.
+              Quem decide, revisa e assina continua sendo você.
+            </p>
+            <DecryptedHeading>
+              Isso aqui não ensina engenharia.
+              <br />
+              <span>Você já sabe.</span>
+            </DecryptedHeading>
+          </AnimatedContent>
+        </section>
+        <section className="section tinted testimonials">
+          <AnimatedContent>
+            <div className="section-head">
+              <div>
+                <div className="section-label">08 / TURMA FUNDADORA</div>
+                <DecryptedHeading>
+                  O que queremos ouvir
+                  <br />
+                  <span>depois do uso.</span>
+                </DecryptedHeading>
+              </div>
+            </div>
+            <div className="testimonial-grid">
+              {[
+                [
+                  "ROTINA DE OBRA",
+                  "O que mais faria diferença para mim é parar de começar cada relatório do zero. Se eu conseguir organizar as informações do dia, gerar uma primeira versão e depois revisar com calma, já economizo um bom tempo sem perder o controle técnico.",
+                  "Rafael Martins",
+                  "Engenheiro responsável por obra",
+                ],
+                [
+                  "DOCUMENTAÇÃO TÉCNICA",
+                  "Eu não espero que a inteligência artificial faça o laudo por mim. O que eu quero é uma estrutura coerente, perguntas sobre os dados que estão faltando e um rascunho que eu consiga conferir. Só isso já reduz bastante o trabalho repetitivo.",
+                  "Camila Andrade",
+                  "Engenheira consultora",
+                ],
+                [
+                  "GESTÃO E COMERCIAL",
+                  "Na correria, proposta, cobrança e resposta para fornecedor acabam tomando mais tempo do que deveriam. Ter comandos específicos para cada situação pode ajudar a responder com mais clareza e manter um padrão, principalmente quando a equipe inteira precisa se comunicar do mesmo jeito.",
+                  "Bruno Ferreira",
+                  "Coordenador de engenharia",
+                ],
+              ].map(([label, text, name, role]) => (
+                <article className="testimonial" key={label}>
+                  <span className="testimonial-tag">{label}</span>
+                  <p>{text}</p>
+                  <small>
+                    <b>{name}</b>Perfil de uso: {role}
+                  </small>
+                </article>
+              ))}
+            </div>
+            <div className="testimonial-closing">
+              <div>
+                <h3>Os próximos relatos podem vir da turma de lançamento.</h3>
+                <p>
+                  Os primeiros participantes serão convidados a avaliar a
+                  instalação, a facilidade de uso e o impacto do Prumo Civil na
+                  rotina. Somente resultados autorizados e identificados serão
+                  publicados como depoimentos.
+                </p>
+              </div>
+              <button className="button button-orange" onClick={goOffer}>
+                Quero participar da turma fundadora <ArrowIcon />
+              </button>
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="section faq" id="faq">
+          <AnimatedContent>
+            <div className="section-label">09 / DÚVIDAS</div>
+            <div className="faq-layout">
+              <DecryptedHeading>
+                Perguntas
+                <br />
+                <span>frequentes.</span>
+              </DecryptedHeading>
+              <div>
+                {[
+                  [
+                    "Preciso saber usar inteligência artificial?",
+                    "Não. As skills já vêm prontas para você copiar, colar e usar nas tarefas do dia.",
+                  ],
+                  [
+                    "Funciona no plano gratuito do Claude?",
+                    "Não. As skills rodam dentro de Projetos, recurso do plano Claude Pro (por volta de US$20/mês). O Pro não está incluso no pacote, você contrata direto com a Anthropic.",
+                  ],
+                  [
+                    "Isso é curso de engenharia?",
+                    "Não. Você já é o engenheiro. O Prumo cuida do rascunho, do cálculo organizado e da redação. Quem decide, revisa e assina continua sendo você.",
+                  ],
+                  [
+                    "Serve pra quem trabalha sozinho e pra escritório com equipe?",
+                    "Os dois. Sozinho, você ganha as horas de volta. Em equipe, todo mundo passa a entregar no mesmo padrão.",
+                  ],
+                  [
+                    "Já tentei montar meus próprios prompts num GPT e não funcionou. Por que aqui seria diferente?",
+                    "Prompt solto resolve uma vez. Skill carrega o contexto técnico embutido, então resolve toda vez, sem você reexplicar norma, formato e método a cada conversa nova. É essa a diferença entre configurar uma vez e reconfigurar toda hora.",
+                  ],
+                  [
+                    "Como recebo o acesso?",
+                    "Assim que a compra é aprovada, o acesso cai no seu e-mail, junto com o link do grupo no WhatsApp.",
+                  ],
+                  [
+                    "E se eu não me adaptar ou não gostar?",
+                    "Tem 7 dias de garantia. Testa num orçamento ou laudo real e, se não fizer sentido pra sua rotina, devolvemos o valor.",
+                  ],
+                ].map(([question, answer]) => (
+                  <details key={question}>
+                    <summary>
+                      {question}
+                      <span>+</span>
+                    </summary>
+                    <p>{answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </AnimatedContent>
+        </section>
+        <section className="section final-cta dark-section">
+          <div className="final-rays-background" aria-hidden="true">
+            <SideRays
+              speed={2.5}
+              rayColor1="#EB551F"
+              rayColor2="#EB551F"
+              intensity={2}
+              spread={3.2}
+              origin="top-right"
+              tilt={0}
+              saturation={1.5}
+              blend={0.75}
+              falloff={0.75}
+              opacity={1.0}
+            />
+          </div>
+          <AnimatedContent>
+            <div className="section-label orange">10 / O PRÓXIMO PASSO</div>
+            <DecryptedHeading>
+              Você pode continuar de madrugada com o memorial.
+              <br />
+              <span>Ou botar 40 skills pra trabalhar hoje.</span>
+            </DecryptedHeading>
+            <p>Por R$19,90. Acesso imediato. Garantia de 7 dias.</p>
+            <SpecularButton
+              size="lg"
+              radius={9}
+              tint="#EB551F"
+              tintOpacity={0}
+              blur={14}
+              textColor="#EB551F"
+              lineColor="#EB551F"
+              baseColor="#EB551F"
+              intensity={3}
+              shineSize={10}
+              shineFade={35}
+              thickness={1}
+              speed={0.35}
+              followMouse={false}
+              proximity={250}
+              autoAnimate
+              onClick={goOffer}
+            >
+              Quero usar hoje · R$19,90 <ArrowIcon />
+            </SpecularButton>
+            <small>R$ 19,90 à vista · 7 dias de garantia</small>
+          </AnimatedContent>
+        </section>
+        <section className="section ps">
+          <AnimatedContent>
+            <div className="ps-card">
+              <span>P.S.</span>
+              <p>
+                Pensa no tempo que você gastou essa semana em tarefa que não era
+                cálculo nem decisão técnica. Esse tempo vale mais que R$19,90. O
+                Prumo começa a devolver esse tempo na primeira tarefa, e a
+                garantia de 7 dias deixa o risco do nosso lado.
+              </p>
+              <strong>Você só testa.</strong>
+            </div>
+          </AnimatedContent>
+        </section>
+      </main>
+      <footer className="footer dark-section">
+        <a className="brand" href="#inicio" aria-label="Prumo Civil">
+          <img src="/brand/logo-light.svg" alt="Prumo Civil" />
+        </a>
+        <p>
+          O Prumo Civil é um acesso digital imediato que disponibiliza
+          instruções de configuração (skills) pra uso no Claude, da Anthropic.
+          Resultados podem variar conforme o uso.
+          <br />O material não substitui o julgamento profissional do engenheiro
+          habilitado nem a responsabilidade técnica prevista em ART/RRT. O Prumo
+          não possui vínculo institucional com a Anthropic.
+        </p>
+        <small>© 2026 PRUMO · TODOS OS DIREITOS RESERVADOS.</small>
+      </footer>
+      <motion.aside
+        className={`sticky-bar ${showSticky ? "visible" : ""}`}
+        initial={false}
+        animate={{ y: showSticky ? 0 : 120 }}
+        aria-label="Oferta Prumo Civil"
+      >
+        <div className="sticky-summary">
+          <div className="sticky-brand">
+            <span className="sticky-kicker">CONDIÇÃO DE FUNDADOR</span>
+            <img src="/brand/logo-light.svg" alt="Prumo Civil" />
+            <small>
+              40 skills <b>+</b> 700 comandos
+            </small>
+          </div>
+          <div className="sticky-price">
+            <span>ACESSO VITALÍCIO</span>
+            <strong>
+              <sup>R$</sup> 19,90
+            </strong>
+            <small>pagamento único</small>
+          </div>
+        </div>
+        <button onClick={goOffer}>
+          <span>Garantir acesso</span>
+          <ArrowIcon />
+        </button>
+      </motion.aside>
+    </div>
+  );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById("root")).render(<App />);
