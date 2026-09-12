@@ -1006,7 +1006,7 @@ function App() {
               followMouse={false}
               proximity={250}
               autoAnimate
-              onClick={() => goCheckout("cta_final")}
+              onClick={goOffer}
             >
               Quero usar hoje · R$19,90 <ArrowIcon />
             </SpecularButton>
@@ -1064,7 +1064,7 @@ function App() {
             <small>pagamento único</small>
           </div>
         </div>
-        <button onClick={() => goCheckout("barra_fixa")}>
+        <button onClick={goOffer}>
           <span>Garantir acesso</span>
           <ArrowIcon />
         </button>
