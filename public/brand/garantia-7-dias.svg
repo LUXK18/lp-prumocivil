@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title desc">
+  <title id="title">Garantia de 7 dias</title>
+  <desc id="desc">Selo circular laranja de garantia de sete dias</desc>
+  <defs>
+    <path id="top-arc" d="M 72 250 A 178 178 0 0 1 428 250" />
+    <path id="bottom-arc" d="M 428 250 A 178 178 0 0 1 72 250" />
+  </defs>
+  <circle cx="250" cy="250" r="246" fill="#F4F0E9" stroke="#EB551F" stroke-width="4" />
+  <circle cx="250" cy="250" r="224" fill="#EB551F" />
+  <circle cx="250" cy="250" r="145" fill="#F4F0E9" />
+  <g fill="#F4F0E9" font-family="Arial, Helvetica, sans-serif" font-size="29" letter-spacing="10">
+    <text><textPath href="#top-arc" startOffset="50%" text-anchor="middle">GARANTIA - 7 DIAS DE</textPath></text>
+    <text><textPath href="#bottom-arc" startOffset="50%" text-anchor="middle">GARANTIA - 7 DIAS DE</textPath></text>
+  </g>
+  <text x="250" y="342" fill="#EB551F" font-family="Arial, Helvetica, sans-serif" font-size="220" font-weight="700" text-anchor="middle">7</text>
+</svg>

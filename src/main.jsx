@@ -805,7 +805,11 @@ function App() {
         <section className="section guarantee">
           <AnimatedContent>
             <div className="guarantee-box">
-              <div className="guarantee-icon">7</div>
+              <img
+                className="guarantee-seal"
+                src="/brand/garantia-7-dias.svg"
+                alt="Garantia de 7 dias"
+              />
               <div>
                 <div className="eyebrow">GARANTIA DE USO REAL</div>
                 <h3>7 dias de teste, sem risco.</h3>
@@ -815,44 +819,22 @@ function App() {
                   e-mail e devolvemos o valor inteiro.
                 </p>
               </div>
-              <span className="guarantee-arrow">
-                <ArrowIcon />
-              </span>
-            </div>
-            <div className="stamp-row">
-              <div className="stamp">
-                PRUMO CIVIL
-                <br />
-                <strong>✦</strong>
-                <br />
-                <span>ASSINADO POR VOCÊ</span>
-              </div>
-              <p>
-                Toda skill sai como rascunho pra revisão, igual chegaria de um
-                colega técnico. Quem carimba, assina e responde continua sendo
-                você.
-                <br />
-                <strong>
-                  O Prumo nunca assume ART, RRT ou responsabilidade técnica de
-                  ninguém.
-                </strong>
-              </p>
             </div>
           </AnimatedContent>
         </section>
         <section className="section reposition">
           <AnimatedContent>
             <div className="section-label">07 / UM LEMBRETE</div>
-            <p>
-              Cálculo, norma e responsabilidade técnica são seus. O Prumo entra
-              pra cuidar do operacional: o rascunho, a estrutura, a redação.
-              Quem decide, revisa e assina continua sendo você.
-            </p>
             <DecryptedHeading>
               Isso aqui não ensina engenharia.
               <br />
               <span>Você já sabe.</span>
             </DecryptedHeading>
+            <p>
+              Cálculo, norma e responsabilidade técnica são seus. O Prumo entra
+              pra cuidar do operacional: o rascunho, a estrutura, a redação.
+              Quem decide, revisa e assina continua sendo você.
+            </p>
           </AnimatedContent>
         </section>
         <section className="section tinted testimonials">
