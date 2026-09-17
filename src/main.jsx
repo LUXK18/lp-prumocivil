@@ -347,10 +347,13 @@ function DocumentMockup() {
   );
 }
 
+const STICKY_BAR_ENABLED = false;
+
 function App() {
   const [showSticky, setShowSticky] = useState(false);
   const offerRef = useRef(null);
   useEffect(() => {
+    if (!STICKY_BAR_ENABLED) return;
     const onScroll = () => setShowSticky(window.scrollY > 700);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -1022,7 +1025,7 @@ function App() {
         </p>
         <small>© 2026 PRUMO · TODOS OS DIREITOS RESERVADOS.</small>
       </footer>
-      <motion.aside
+      {STICKY_BAR_ENABLED && <motion.aside
         className={`sticky-bar ${showSticky ? "visible" : ""}`}
         initial={false}
         animate={{ y: showSticky ? 0 : 120 }}
@@ -1048,7 +1051,7 @@ function App() {
           <span>Garantir acesso</span>
           <ArrowIcon />
         </button>
-      </motion.aside>
+      </motion.aside>}
     </div>
   );
 }
