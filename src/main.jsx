@@ -10,6 +10,7 @@ import {
 import "./styles.css";
 import TextType from "./components/TextType";
 import DecryptedText from "./components/DecryptedText";
+import PurchaseNotification from "./components/PurchaseNotification";
 import DarkVeil from "./component/DarkVeil";
 import CardSwap, { Card } from "./component/CardSwap";
 import SpecularButton from "./component/SpecularButton";
@@ -1025,6 +1026,7 @@ function App() {
         </p>
         <small>© 2026 PRUMO · TODOS OS DIREITOS RESERVADOS.</small>
       </footer>
+      <PurchaseNotification />
       {STICKY_BAR_ENABLED && <motion.aside
         className={`sticky-bar ${showSticky ? "visible" : ""}`}
         initial={false}

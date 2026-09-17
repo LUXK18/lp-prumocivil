@@ -1,0 +1,123 @@
+.purchase-notification {
+  position: fixed;
+  z-index: 30;
+  left: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 280px;
+  max-width: calc(100vw - 32px);
+  padding: 13px 20px 13px 12px;
+  border: 1px solid #dedbd5;
+  border-radius: 11px;
+  background: #fff;
+  color: #15262A;
+  box-shadow: 0 14px 42px rgba(21, 38, 42, .16);
+}
+
+.purchase-notification__avatar {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border: 2px solid #EB551F;
+  border-radius: 50%;
+}
+
+.purchase-notification__copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.purchase-notification__copy strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.purchase-notification__copy p {
+  margin: 3px 0 0;
+  font-size: 14px;
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+
+.purchase-notification__confetti {
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  color: #EB551F;
+  stroke-width: 1.7;
+}
+
+.purchase-notification__close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #758084;
+  cursor: pointer;
+}
+
+.purchase-notification__close:hover {
+  background: #f4f0e9;
+}
+
+.purchase-notification__close:focus-visible {
+  outline: 2px solid #EB551F;
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .purchase-notification {
+    left: 15px;
+    bottom: max(15px, env(safe-area-inset-bottom));
+    width: clamp(168px, 44vw, 240px);
+    max-width: calc(100vw - 30px);
+    gap: 7px;
+    padding: 10px 16px 10px 9px;
+    border-radius: 8px;
+  }
+
+  .purchase-notification__avatar {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+    border-width: 1.5px;
+  }
+
+  .purchase-notification__label {
+    font-size: 7px;
+    margin-bottom: 3px;
+  }
+
+  .purchase-notification__copy strong {
+    font-size: 8px;
+  }
+
+  .purchase-notification__copy p {
+    font-size: 10px;
+    margin-top: 2px;
+  }
+
+  .purchase-notification__confetti {
+    flex-basis: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .purchase-notification__close {
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
