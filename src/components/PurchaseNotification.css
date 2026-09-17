@@ -13,14 +13,14 @@
   border-radius: 11px;
   background: #fff;
   color: #15262A;
-  box-shadow: 0 14px 42px rgba(21, 38, 42, .16);
+  box-shadow: none;
 }
 
 .purchase-notification__avatar {
   flex: 0 0 46px;
   width: 46px;
   height: 46px;
-  border: 2px solid #EB551F;
+  border: 2px solid #16a34a;
   border-radius: 50%;
 }
 
@@ -47,7 +47,7 @@
   flex: 0 0 22px;
   width: 22px;
   height: 22px;
-  color: #EB551F;
+  color: #16a34a;
   stroke-width: 1.7;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .purchase-notification__close:focus-visible {
-  outline: 2px solid #EB551F;
+  outline: 2px solid #16a34a;
   outline-offset: 2px;
 }
 

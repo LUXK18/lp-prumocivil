@@ -15,7 +15,7 @@ function createProfile(previousName) {
     name,
     skin: pick(['#f2c8a5', '#ca8e66', '#895c42', '#dfab87']),
     hair: pick(['#332521', '#694834', '#a56b38', '#d6b16b']),
-    shirt: pick(['#EB551F', '#15262A', '#537b73', '#617894', '#966b8a']),
+    shirt: pick(['#16a34a', '#15262A', '#537b73', '#617894', '#966b8a']),
     background: pick(['#ede0ca', '#d7e6e1', '#e1e5f0', '#f1dcd6']),
     longHair: Math.random() > 0.5,
     id: Math.random().toString(36).slice(2),
