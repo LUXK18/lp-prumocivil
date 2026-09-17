@@ -6,7 +6,7 @@ import './PurchaseNotification.css';
 const names = ['Ana', 'Rafael', 'Camila', 'Bruno', 'Mariana', 'Lucas', 'Beatriz', 'Gabriel', 'Juliana', 'Felipe', 'Carolina', 'Thiago'];
 const surnames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Costa', 'Pereira', 'Almeida', 'Rodrigues'];
 const pick = values => values[Math.floor(Math.random() * values.length)];
-const randomDelay = () => 4000 + Math.random() * 4000;
+const randomDelay = () => 5000 + Math.random() * 15000;
 
 function createProfile(previousName) {
   let name;
