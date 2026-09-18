@@ -11,6 +11,7 @@ import "./styles.css";
 import TextType from "./components/TextType";
 import DecryptedText from "./components/DecryptedText";
 import PurchaseNotification from "./components/PurchaseNotification";
+import NotificationAvatar from "./components/NotificationAvatar";
 import DarkVeil from "./component/DarkVeil";
 import CardSwap, { Card } from "./component/CardSwap";
 import SpecularButton from "./component/SpecularButton";
@@ -849,30 +850,48 @@ function App() {
             <div className="testimonial-grid">
               {[
                 [
-                  "ROTINA DE OBRA",
-                  "O que mais faria diferença para mim é parar de começar cada relatório do zero. Se eu conseguir organizar as informações do dia, gerar uma primeira versão e depois revisar com calma, já economizo um bom tempo sem perder o controle técnico.",
+                  "PROPOSTA COMERCIAL",
+                  "Usei pra começar uma proposta comercial. Precisei ajustar o escopo e algumas condições, mas ajudou a organizar o que eu queria colocar. Pra mim, a utilidade é essa: ter uma base pra trabalhar.",
                   "Rafael Martins",
                   "Engenheiro responsável por obra",
+                  { photo: "/avatars/primeiro-card.png" },
+                ],
+                [
+                  "RESPOSTAS A CLIENTES",
+                  "Eu já usava IA, só que acabava pedindo tudo meio no improviso mesmo. testei os comandos pra resposta de cliente e achei mais fácil de conduzir. algumas frases ficaram formais demais pro meu jeito, aí adaptei. ainda tenho bastante coisa do pacote pra olhar.",
+                  "Camila Andrade",
+                  "Engenheira consultora",
+                  { photo: "/avatars/segundo-card.png" },
                 ],
                 [
                   "DOCUMENTAÇÃO TÉCNICA",
-                  "Eu não espero que a inteligência artificial faça o laudo por mim. O que eu quero é uma estrutura coerente, perguntas sobre os dados que estão faltando e um rascunho que eu consiga conferir. Só isso já reduz bastante o trabalho repetitivo.",
-                  "Camila Andrade",
-                  "Engenheira consultora",
-                ],
-                [
-                  "GESTÃO E COMERCIAL",
-                  "Na correria, proposta, cobrança e resposta para fornecedor acabam tomando mais tempo do que deveriam. Ter comandos específicos para cada situação pode ajudar a responder com mais clareza e manter um padrão, principalmente quando a equipe inteira precisa se comunicar do mesmo jeito.",
+                  "Minha primeira experiência foi com a preparação de um memorial. A estrutura serviu como ponto de partida, mas revisei as especificações e completei os dados do projeto. Ainda não avaliei as outras áreas. Para essa parte de documentação, vi utilidade.",
                   "Bruno Ferreira",
                   "Coordenador de engenharia",
+                  { photo: "/avatars/terceiro-card.png" },
                 ],
-              ].map(([label, text, name, role]) => (
+              ].map(([label, text, name, role, profile]) => (
                 <article className="testimonial" key={label}>
-                  <span className="testimonial-tag">{label}</span>
-                  <p>{text}</p>
-                  <small>
-                    <b>{name}</b>Perfil de uso: {role}
-                  </small>
+                  {profile.photo ? (
+                    <img
+                      src={profile.photo}
+                      alt=""
+                      className="testimonial-avatar testimonial-avatar--photo"
+                      width={46}
+                      height={46}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <NotificationAvatar profile={profile} className="testimonial-avatar" />
+                  )}
+                  <div className="testimonial-copy">
+                    <div className="testimonial-header">
+                      <strong>{name}</strong>
+                    </div>
+                    <span className="testimonial-tag">{label}</span>
+                    <p>{text}</p>
+                    <small>Perfil de uso: {role}</small>
+                  </div>
                 </article>
               ))}
             </div>

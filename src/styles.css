@@ -261,11 +261,41 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin: 20px 0 25px; font-size: clamp(48px
 .decrypt-revealed, .decrypt-encrypted { color: inherit; }
 .decrypt-encrypted { opacity: .48; filter: blur(.35px); }
 
-.testimonial { display: flex; flex-direction: column; }
-.testimonial .testimonial-tag { font: 500 9px/1.3 var(--mono); letter-spacing: .12em; }
-.testimonial p { flex: 1; margin: 30px 0 40px; line-height: 1.55; }
-.testimonial small { margin-top: auto; line-height: 1.5; }
-.testimonial small b { display: block; margin-bottom: 3px; color: var(--ink); font-weight: 500; }
+.testimonial-grid { gap: 16px; align-items: stretch; }
+.testimonial {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	min-width: 0;
+	min-height: 0;
+	padding: 16px 20px 16px 12px;
+	border: 1px solid #dedbd5;
+	border-radius: 11px;
+	background: #fff;
+	color: #15262a;
+	box-shadow: none;
+}
+.testimonial-avatar {
+	flex: 0 0 46px;
+	width: 46px;
+	height: 46px;
+	border: 2px solid #16a34a;
+	border-radius: 50%;
+}
+.testimonial-copy { display: flex; flex: 1; flex-direction: column; align-self: stretch; min-width: 0; }
+.testimonial-avatar--photo { display: block; object-fit: cover; object-position: 50% 35%; }
+.testimonial-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.testimonial-header strong { font-size: 12px; font-weight: 500; line-height: 1.4; }
+.testimonial .testimonial-tag { display: block; margin-top: 6px; color: #16a34a; font: 500 9px/1.4 var(--mono); letter-spacing: .08em; }
+.testimonial p { flex: 1; margin: 8px 0 16px; color: inherit; font: 14px/1.45 var(--sans); letter-spacing: -.03em; }
+.testimonial small { margin-top: auto; color: #758084; font: 10px/1.5 var(--sans); }
+@media (max-width: 1000px) {
+	.testimonial-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+	.testimonial { gap: 8px; padding: 13px 16px 13px 12px; border-radius: 8px; }
+	.testimonial-avatar { flex-basis: 30px; width: 30px; height: 30px; border-width: 1.5px; }
+}
 .testimonial-closing { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; margin-top: 38px; padding: 30px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .testimonial-closing h3 { margin: 0 0 10px; font-size: 24px; letter-spacing: -.045em; }
 .testimonial-closing p { max-width: 650px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
