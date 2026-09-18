@@ -229,7 +229,7 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin: 20px 0 25px; font-size: clamp(48px
 	min-height: 58px;
 	border: 1px solid rgba(255,255,255,.12);
 	border-radius: 2px;
-	background: var(--clay);
+	background: #48A948;
 	color: #fff8ef;
 	font-weight: 600;
 	text-transform: uppercase;
@@ -254,7 +254,7 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin: 20px 0 25px; font-size: clamp(48px
 }
 .offer-card .offer-cta > span, .offer-card .offer-cta > .arrow-icon { position: relative; z-index: 3; }
 .offer-card .offer-cta > span { margin-left: 0; font-size: inherit; }
-.offer-card .offer-cta:hover { background: var(--clay); transform: translateY(-1px); filter: brightness(1.08); }
+.offer-card .offer-cta:hover { background: #48A948; transform: translateY(-1px); filter: brightness(1.08); }
 .offer-card .offer-cta .arrow-icon { width: 18px; height: 18px; transition: transform .2s ease; }
 .offer-card .offer-cta:hover .arrow-icon { transform: translateX(3px); }
 
