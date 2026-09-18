@@ -746,11 +746,6 @@ function App() {
                   40 skills + biblioteca de 700 comandos. Investimento único,
                   acesso vitalício.
                 </p>
-                <div className="offer-manifesto">
-                  "Você assina.
-                  <br />
-                  <em>A ferramenta não.</em>"
-                </div>
               </div>
               <div className="offer-card">
                 <div className="offer-card-top">
