@@ -258,6 +258,15 @@ h1, h2, h3, p { margin-top: 0; } h1 { margin: 20px 0 25px; font-size: clamp(48px
 .offer-card .offer-cta .arrow-icon { width: 18px; height: 18px; transition: transform .2s ease; }
 .offer-card .offer-cta:hover .arrow-icon { transform: translateX(3px); }
 
+.offer-intro { min-width: 0; }
+.offer-product-image {
+	display: block;
+	width: 100%;
+	max-width: 803px;
+	height: auto;
+	margin: 28px 0 0;
+}
+
 .decrypt-revealed, .decrypt-encrypted { color: inherit; }
 .decrypt-encrypted { opacity: .48; filter: blur(.35px); }
 

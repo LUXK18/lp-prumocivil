@@ -747,6 +747,15 @@ function App() {
                   40 skills + biblioteca de 700 comandos. Investimento único,
                   acesso vitalício.
                 </p>
+                <img
+                  className="offer-product-image"
+                  src="/product/prumo-civil.png"
+                  alt="Prumo Civil em notebook, tablet e celular"
+                  width={803}
+                  height={379}
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <div className="offer-card">
                 <div className="offer-card-top">
